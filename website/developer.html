@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnhanceX Developer Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">EnhanceX v2.0.0</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a href="releases.html">Releases</a>
+      <a href="models.html">Model Hub</a>
+      <a href="developer.html">Developer</a>
+      <a href="benchmarks.html">Benchmarks</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Developer Portal</h1>
+    <p>Resources, APIs, C++ SDK bindings, and plugin development guides.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🏗️ System Architecture</h3>
+        <p>Explore the 17 subpackage modules, C++ core, and AAE engine design.</p>
+        <a href="../docs/developer/architecture.md" class="btn btn-secondary" style="margin-top:1rem;">View Architecture</a>
+      </div>
+
+      <div class="card">
+        <h3>💻 C++ SDK Integration</h3>
+        <p>Build native high-performance C++20 desktop or embedded applications using Pybind11 / CMake.</p>
+        <pre>#include &lt;enhancex/sdk.hpp&gt;</pre>
+      </div>
+
+      <div class="card">
+        <h3>📊 Telemetry & Prometheus</h3>
+        <p>Monitor inference throughput, latencies, and memory utilization.</p>
+        <pre>GET /metrics</pre>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>EnhanceX Platform v2.0.0 | Created by Slock Ahuja | <a href="https://github.com/SlockAhuja/EnhanceX" style="color:var(--accent-color);">GitHub Repository</a></p>
+  </footer>
+</body>
+</html>

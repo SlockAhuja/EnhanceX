@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnhanceX Model Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">EnhanceX v2.0.0</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a href="releases.html">Releases</a>
+      <a href="models.html">Model Hub</a>
+      <a href="developer.html">Developer</a>
+      <a href="benchmarks.html">Benchmarks</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>EnhanceX Model Hub Framework</h1>
+    <p>Official AI model weight registry with SHA-256 integrity verification.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Real-ESRGAN (x4plus)</h3>
+        <p><b>Category:</b> Super Resolution (4x scale)</p>
+        <p><b>VRAM:</b> ~2.0 GB</p>
+        <p><b>PSNR:</b> 34.8 dB</p>
+        <pre>enhancex models install RealESRGAN</pre>
+      </div>
+
+      <div class="card">
+        <h3>GFPGAN (v1.3)</h3>
+        <p><b>Category:</b> Facial Restoration</p>
+        <p><b>VRAM:</b> ~3.5 GB</p>
+        <p><b>FID:</b> 12.4</p>
+        <pre>enhancex models install GFPGAN</pre>
+      </div>
+
+      <div class="card">
+        <h3>CodeFormer</h3>
+        <p><b>Category:</b> Blind Face Restoration</p>
+        <p><b>VRAM:</b> ~4.0 GB</p>
+        <p><b>Fidelity:</b> Controllable (0.0 - 1.0)</p>
+        <pre>enhancex models install CodeFormer</pre>
+      </div>
+
+      <div class="card">
+        <h3>SwinIR</h3>
+        <p><b>Category:</b> Image Restoration & Super Resolution</p>
+        <p><b>VRAM:</b> ~1.5 GB</p>
+        <p><b>PSNR:</b> 36.2 dB</p>
+        <pre>enhancex models install SwinIR</pre>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>EnhanceX Platform v2.0.0 | Created by Slock Ahuja | <a href="https://github.com/SlockAhuja/EnhanceX" style="color:var(--accent-color);">GitHub Repository</a></p>
+  </footer>
+</body>
+</html>

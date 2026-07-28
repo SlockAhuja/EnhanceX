@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnhanceX Download Center</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">EnhanceX v2.0.0</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a href="releases.html">Releases</a>
+      <a href="models.html">Model Hub</a>
+      <a href="developer.html">Developer</a>
+      <a href="benchmarks.html">Benchmarks</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>EnhanceX Download Center</h1>
+    <p>Select your operating system and installation method.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🐍 PyPI (Recommended)</h3>
+        <pre>pip install enhancex==2.0.0</pre>
+        <p>Installs the complete EnhanceX distribution for Python 3.10+.</p>
+      </div>
+
+      <div class="card">
+        <h3>📦 Git Remote Install</h3>
+        <pre>pip install git+https://github.com/SlockAhuja/EnhanceX.git</pre>
+        <p>Installs the latest production main branch directly from GitHub.</p>
+      </div>
+
+      <div class="card">
+        <h3>🐳 Docker Container</h3>
+        <pre>docker pull slockahuja/enhancex:latest</pre>
+        <p>Pre-packaged container with CUDA acceleration and FastAPI REST server.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>EnhanceX Platform v2.0.0 | Created by Slock Ahuja | <a href="https://github.com/SlockAhuja/EnhanceX" style="color:var(--accent-color);">GitHub Repository</a></p>
+  </footer>
+</body>
+</html>
