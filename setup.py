@@ -4,11 +4,13 @@ from setuptools import setup, find_packages
 
 setup(
     name="enhancex",
-    version="1.0.0",
+    version="2.0.0",
     description="Universal AI-Powered Image & Video Enhancement Framework",
     long_description=open("README.md", encoding="utf-8").read() if os.path.exists("README.md") else "",
     long_description_content_type="text/markdown",
-    author="EnhanceX Core Team",
+    author="Slock Ahuja",
+    author_email="ahujaslock321@gmail.com",
+    url="https://github.com/SlockAhuja/EnhanceX",
     packages=find_packages(),
     python_requires=">=3.10",
     install_requires=[

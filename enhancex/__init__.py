@@ -1,9 +1,11 @@
 """
 EnhanceX: Universal AI-Powered Image & Video Enhancement Framework
+Created by Slock Ahuja
+GitHub: https://github.com/SlockAhuja/EnhanceX
 """
 
-__version__ = "1.0.0"
-__author__ = "EnhanceX Core Team"
+__version__ = "2.0.0"
+__author__ = "Slock Ahuja"
 
 from enhancex.api.high_level import (
     VideoEnhancer,

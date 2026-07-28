@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 title: "EnhanceX: Universal AI-Powered Image & Video Enhancement Framework"
-message: "If you use this software in your academic or industrial research, please cite it as below."
+message: "If you use this software in your research or production projects, please cite it as below."
 authors:
-  - family-names: "EnhanceX"
-    given-names: "Core Engineering Team"
-version: 1.0.0
-date-released: 2026-07-25
-url: "https://github.com/enhancex/enhancex"
+  - family-names: "Ahuja"
+    given-names: "Slock"
+version: 2.0.0
+date-released: 2026-07-28
+url: "https://github.com/SlockAhuja/EnhanceX"
 license: MIT

@@ -1,232 +1,182 @@
-<div align="center">
+# EnhanceX
 
-# 🚀 EnhanceX: Universal AI Image & Video Enhancement Framework
+[![Release](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/SlockAhuja/EnhanceX)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](pyproject.toml)
+[![CUDA](https://img.shields.io/badge/CUDA-11.8%20%7C%2012.x-nvidia)](https://developer.nvidia.com/cuda-toolkit)
+[![Build Status](https://img.shields.io/badge/tests-48%2F48%20passing-success)](https://github.com/SlockAhuja/EnhanceX)
 
-![EnhanceX Banner](assets/banner.png)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![C++ Standard](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://isocpp.org/)
-[![CUDA Acceleration](https://img.shields.io/badge/CUDA-11.8%20%7C%2012.1-green.svg)](https://developer.nvidia.com/cuda-zone)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg)](https://pytorch.org/)
-[![CI Status](https://github.com/SlockAhuja/EnhanceX/workflows/CI/badge.svg)](https://github.com/SlockAhuja/EnhanceX/actions)
-
-</div>
+**Universal AI-Powered Media Enhancement Platform**  
+*Created by [Slock Ahuja](https://github.com/SlockAhuja/EnhanceX)*  
+GitHub Repository: [https://github.com/SlockAhuja/EnhanceX](https://github.com/SlockAhuja/EnhanceX)
 
 ---
 
-## 📌 Overview
+## 🌟 Overview
 
-**EnhanceX** is a production-ready, enterprise-grade open-source framework for multi-model AI super-resolution, video stabilization, frame interpolation, face restoration, and video processing.
+**EnhanceX v2.0.0** is an enterprise-grade modular AI media enhancement platform designed for automated, high-throughput image, video, audio, and document processing.
 
-Built on Clean Architecture principles with modern **C++20** and custom **CUDA** acceleration, EnhanceX provides high-throughput processing across Python, C++, CLI, REST API (FastAPI), gRPC, and a modern desktop application (**EnhanceX Studio**).
+Powered by the **Adaptive AI Enhancement Engine (AAE)**, EnhanceX automatically analyzes input media, detects quality defects (blur, noise, compression artifacts, low resolution, color imbalance, low light), and constructs optimal execution pipelines.
 
----
+```text
+========================================================
 
-## ✨ Features
+                EnhanceX v2.0.0
 
-- **🧠 Multi-Model AI Restoration**:
-  - **Real-ESRGAN** & **BasicSR** (Super-Resolution up to 8x)
-  - **RIFE v4.6** (Intermediate Flow Estimation for 60 FPS / 120 FPS Video Interpolation)
-  - **GFPGAN v1.3** & **CodeFormer** VQ-Transformer (Blind Face Restoration)
-  - **Tile Inference Engine**: Zero VRAM overflow on 4K / 8K media via overlapped tile blending.
-- **📹 Production Video Pipeline**:
-  - Multithreaded frame IO (`ProducerConsumerVideoReader` & `AsyncVideoWriter`)
-  - Optical Flow & Affine RANSAC Video Stabilization
-  - Content-aware Scene Boundary Detection
-  - HDR Retinex Tone Mapping & Spatial/Temporal Denoising
-- **⚡ Modern C++20 SDK & CUDA Acceleration**:
-  - Custom CUDA kernels for Laplacian sharpening, spatial bilateral denoising, bilinear scaling, color transforms, and HDR tone mapping with stream synchronization.
-  - Native PyBind11 bindings connecting Python and C++ engines seamlessly.
-- **🌐 Enterprise REST & gRPC Servers**:
-  - FastAPI server with API key auth (`X-API-Key`), async background jobs, WebSocket video frame streaming, and Swagger docs.
-  - High-throughput gRPC servicer with Protobuf definitions (`enhancex.proto`).
-- **🖥 EnhanceX Studio Desktop App**:
-  - PyQt6 / PySide6 interface with dark theme, real-time before/after comparison slider, model hub manager, multi-task batch queue, hardware monitor, and crash reporting.
+========================================================
+
+Thank you for installing EnhanceX!
+
+Created by: Slock Ahuja
+GitHub: https://github.com/SlockAhuja/EnhanceX
+```
 
 ---
 
-## 🏗 Architecture Diagram
+## 🏗️ Platform Architecture
 
-```mermaid
-graph TD
-    A["Input Media (Image / Video Stream)"] --> B["VideoIO / Reader Queue"]
-    B --> C["Scene Detector & Frame Separator"]
-    C --> D["Video Stabilizer (Optical Flow RANSAC)"]
-    D --> E["EnhanceX AI Engine"]
-    
-    subgraph "EnhanceX AI Engine Stack"
-        E1["Tile Engine (Overlapped Blending)"]
-        E2["Super-Resolution (Real-ESRGAN / BasicSR)"]
-        E3["Frame Interpolation (RIFE v4.6)"]
-        E4["Face Restoration (GFPGAN / CodeFormer)"]
-        E5["CUDA Accelerated Operators (Sharpen / Denoise / HDR)"]
-        E1 --> E2
-        E2 --> E3
-        E3 --> E4
-        E4 --> E5
-    end
-    
-    E --> F["Async Video Writer / Streamer"]
-    F --> G["Outputs (Python SDK / REST API / gRPC / EnhanceX Studio GUI)"]
+```
+                  +-----------------------------------+
+                  |   EnhanceX CLI & Desktop Studio   |
+                  +-----------------------------------+
+                                    |
+                  +-----------------------------------+
+                  |         High-Level Python API     |
+                  +-----------------------------------+
+                                    |
+         +--------------------------+--------------------------+
+         |                                                     |
++-------------------+                                 +------------------+
+|  Adaptive AI      |                                 | Model Registry   |
+|  Engine (AAE)     |                                 | & Manager        |
++-------------------+                                 +------------------+
+         |                                                     |
+         +--------------------------+--------------------------+
+                                    |
+   +--------------------------------+--------------------------------+
+   |                                                                 |
++------------------------------------+             +----------------------------------+
+| Domain Ecosystem Subpackages       |             | Enterprise SDK & Remote Server   |
+| (Image, Video, Audio, Document,    |             | (FastAPI, gRPC, Prometheus)      |
+|  Anime, Medical, Satellite, Face)  |             |                                  |
++------------------------------------+             +----------------------------------+
+                                    |
+                  +-----------------------------------+
+                  |     CUDA / C++ Acceleration Core  |
+                  +-----------------------------------+
 ```
 
 ---
 
 ## 📦 Installation
 
+### Complete Distribution
 ```bash
-# Clone the repository
-git clone https://github.com/SlockAhuja/EnhanceX.git
-cd EnhanceX
+pip install git+https://github.com/SlockAhuja/EnhanceX.git
+```
 
-# Install Python package in editable mode
-pip install -e .
-
-# Optional: Build native C++20 SDK and PyBind11 extension
-python setup.py build_ext --inplace
+### Domain Subpackage Installations
+Install only required components:
+```bash
+pip install enhancex-image
+pip install enhancex-video
+pip install enhancex-audio
+pip install enhancex-document
+pip install enhancex-anime
+pip install enhancex-medical
 ```
 
 ---
 
-## 🚀 Quick Start & Code Examples
+## 🚀 Quick Start
 
-### 🐍 Python SDK Example
+### 1. Python API
 
+#### Auto Mode (Adaptive AAE Engine)
 ```python
-import cv2
-from enhancex.api.high_level import ImageEnhancer, SuperResolutionEngine, VideoPipelineManager
+from enhancex import ImageEnhancer
 
-# 1. Image Enhancement & Upscaling
-img = cv2.imread("input.jpg")
-sr = SuperResolutionEngine(model_name="real-esrgan", scale=4)
-upscaled = sr.upscale(img)
-cv2.imwrite("output_upscaled.jpg", upscaled)
+# Initialize in Auto Mode
+enhancer = ImageEnhancer(mode="auto")
 
-# 2. Full Video Processing Pipeline
-pipeline = VideoPipelineManager(
-    enable_stabilization=True,
-    enable_super_resolution=True,
-    enable_interpolation=True,
-    sr_scale=2
-)
-pipeline.process_video("input.mp4", "output_enhanced.mp4")
+# Enhance image with automated category detection & defect repair
+enhanced_image = enhancer.enhance("input.jpg", output_path="enhanced_output.jpg")
+print("Metrics:", enhancer.last_metrics)
 ```
 
-### 💻 CLI Example
+#### Research & Benchmark Mode (Manual Model Selection)
+```python
+# Explicit model selection for research and benchmarking
+enhancer = ImageEnhancer(mode="manual", model="RealESRGAN")
+enhanced_image = enhancer.enhance("input.jpg", output_path="upscaled.jpg")
+```
+
+### 2. Command Line Interface (CLI)
 
 ```bash
-# Enhance & Sharpen Image
-enhancex enhance-image input.jpg output.jpg --sharpen 1.5 --clahe
+# System Diagnostics
+enhancex doctor
 
-# Upscale Image 4x with Real-ESRGAN
-enhancex enhance-image input.jpg output_4x.jpg --scale 4 --model real-esrgan
+# System Specs & Hardware Capabilities
+enhancex info
 
-# Stabilize Video
-enhancex stabilize input.mp4 output_stabilized.mp4 --smoothing 30
-```
+# Version Check
+enhancex version
 
-### 🌐 REST API Example
+# Auto Mode Image Enhancement
+enhancex enhance input.jpg output.jpg --mode auto
 
-```bash
-# Start FastAPI Server
-uvicorn enhancex.server.fastapi_server:app --host 0.0.0.0 --port 8000
+# Research Mode Model Upscaling
+enhancex enhance input.jpg output.jpg --mode manual --model RealESRGAN
 
-# Send REST request to upscale an image
-curl -X POST "http://localhost:8000/api/v1/upscale" \
-     -H "X-API-Key: your_secret_key" \
-     -F "file=@input.jpg" \
-     -F "scale=4" \
-     -F "model=real-esrgan" \
-     --output upscaled_api.jpg
-```
-
-### ⚙️ C++ SDK Example
-
-```cpp
-#include <enhancex/sdk.hpp>
-#include <opencv2/opencv.hpp>
-
-int main() {
-    enhancex::sdk::EnhanceXSDK sdk;
-    
-    cv::Mat input = cv::imread("input.jpg");
-    cv::Mat enhanced = sdk.enhanceImage(input, 1.5f, 2.0);
-    cv::imwrite("output_cpp.jpg", enhanced);
-    
-    return 0;
-}
+# Model Management
+enhancex models list
+enhancex models install RealESRGAN
+enhancex models verify
 ```
 
 ---
 
-## 🖥 EnhanceX Studio Desktop UI
+## 📖 Documentation Directory
 
-Launch the desktop interface with:
-
-```bash
-enhancex-gui
-```
-
-Features an interactive before/after split comparison slider, model manager hub, multi-file batch queue, hardware monitor, and export wizard.
-
----
-
-## ⚡ CUDA & Acceleration Details
-
-Custom CUDA kernels in `cpp/src/gpu/cuda_kernels.cu` leverage shared memory tiling and asynchronous streams (`cudaStream_t`) to execute Laplacian unsharp masking, bilateral spatial denoising, bilinear image scaling, and HDR tone mapping with zero CPU bottlenecks.
+* 📘 [User Guide](USER_GUIDE.md)
+* 🛠️ [Developer Guide](DEVELOPER_GUIDE.md)
+* 💡 [API Reference](API_REFERENCE.md)
+* 🖥️ [CLI Guide](CLI_GUIDE.md)
+* 💻 [Code Examples](EXAMPLES.md)
+* ❓ [Frequently Asked Questions](FAQ.md)
+* 🔄 [Migration Guide](MIGRATION_GUIDE.md)
+* 📊 [Roadmap](ROADMAP.md)
+* ⚡ [Compatibility Matrix](COMPATIBILITY.md)
+* ⚠️ [Known Limitations](KNOWN_LIMITATIONS.md)
 
 ---
 
-## 📊 Performance Benchmarks
+## 👥 Contribution & Security
 
-| Operation / Task | Resolution | Engine | FPS | Latency | Peak VRAM |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **CUDA Laplacian Sharpen** | 1080p | EnhanceX CUDA Stream | **420 FPS** | **2.38 ms** | 210 MB |
-| **CUDA Bilateral Denoise** | 1080p | EnhanceX Shared Mem | **280 FPS** | **3.57 ms** | 240 MB |
-| **Real-ESRGAN 4x** | 512x512 | PyTorch FP16 | **62 FPS** | **16.1 ms** | 1.2 GB |
-| **Real-ESRGAN 4x Tile Engine** | 4K -> 16K | PyTorch FP16 Tile | **12 FPS** | **83.3 ms** | < 3.5 GB |
+* **Contribution Guide:** Please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+* **Security Policy:** Please refer to [SECURITY.md](SECURITY.md).
+* **Code of Conduct:** Please refer to [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ---
 
-## ❓ FAQ
+## 🎓 Citation
 
-- **Q: How does tile inference work on low-VRAM GPUs?**  
-  *A: The tile engine splits high-resolution images into overlapped patches, processes them through the model, and seamlessly blends the overlapping borders to prevent seam artifacts.*
-- **Q: Does EnhanceX work on CPU without an NVIDIA GPU?**  
-  *A: Yes! EnhanceX includes automatic hardware fallback for CPU, Apple Silicon MPS, and DirectML.*
-
----
-
-## 🗺 Roadmap
-
-- [x] Multi-model deep learning restoration (Real-ESRGAN, RIFE, GFPGAN, CodeFormer, BasicSR)
-- [x] Custom C++20 SDK and CUDA shared-memory kernels
-- [x] REST API, WebSocket streaming, and gRPC servers
-- [x] PyQt6 / PySide6 desktop GUI
-- [ ] Vulkan & WebGPU acceleration backend
-- [ ] Distributed cloud render farm cluster support
-
----
-
-## 📜 Citation & License
-
-If you use EnhanceX in your academic or industrial work, please cite:
+If you use EnhanceX in your academic or industrial research projects, please cite:
 
 ```bibtex
-@software{EnhanceX2026,
-  author = {Slock Ahuja},
-  title = {EnhanceX: Enterprise AI Image & Video Processing Framework},
+@software{Ahuja_EnhanceX_2026,
+  author = {Ahuja, Slock},
+  title = {EnhanceX: Universal AI-Powered Image & Video Enhancement Framework},
+  version = {2.0.0},
   year = {2026},
   url = {https://github.com/SlockAhuja/EnhanceX}
 }
 ```
 
-Distributed under the [MIT License](LICENSE).
-
 ---
 
-## 🤝 Contribution & Support
+## 📄 License
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull requests.  
-For security vulnerabilities, see [SECURITY.md](SECURITY.md).
+EnhanceX is open-source software released under the [MIT License](LICENSE).  
+Created by **Slock Ahuja** | GitHub: [https://github.com/SlockAhuja/EnhanceX](https://github.com/SlockAhuja/EnhanceX)

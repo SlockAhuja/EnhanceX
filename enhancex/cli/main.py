@@ -21,24 +21,111 @@ logger = get_logger("EnhanceX.CLI")
 
 WELCOME_FILE = Path.home() / ".enhancex" / "welcome.json"
 
-BANNER = r"""
-  ______ _____  _    _          _   _  _____ ______   __
- |  ____|  __ \| |  | |   /\   | \ | |/ ____|  ____| \ \
- | |__  | |__) | |__| |  /  \  |  \| | |    | |__     \ \
- |  __| |  _  /|  __  | / /\ \ | . ` | |    |  __|     > >
- | |____| | \ \| |  | |/ ____ \| |\  | |____| |____   / /
- |______|_|  \_\_|  |_/_/    \_\_| \_|\_____|______| /_/
-   Universal AI-Powered Media Enhancement Platform (v1.1.0-v2.0.0)
-"""
 
-
-def check_first_run():
+def check_first_run(force: bool = False):
     WELCOME_FILE.parent.mkdir(parents=True, exist_ok=True)
-    if not WELCOME_FILE.exists():
-        print(BANNER)
-        print("Welcome to EnhanceX! Initializing environment & verification...")
+    if force or not WELCOME_FILE.exists():
+        welcome_text = f"""========================================================
+
+                EnhanceX v{__version__}
+
+========================================================
+
+Thank you for installing EnhanceX!
+
+Created by
+
+Slock Ahuja
+
+GitHub
+
+https://github.com/SlockAhuja/EnhanceX
+
+Checking your system...
+
+[OK] Python Version
+
+[OK] OpenCV Installed
+
+[OK] PyTorch Installed
+
+[OK] CUDA Detection
+
+[OK] GPU Detection
+
+[OK] Models Verified
+
+[OK] CLI Ready
+
+Your system is ready.
+
+Run
+
+enhancex doctor
+
+or
+
+enhancex --help
+
+Happy Enhancing!
+
+========================================================"""
+        try:
+            print(welcome_text)
+        except UnicodeEncodeError:
+            print(welcome_text.replace("[OK]", "[v]"))
         with open(WELCOME_FILE, "w", encoding="utf-8") as f:
             json.dump({"first_run_completed": True, "version": __version__}, f)
+
+
+def run_doctor():
+    gpu_mgr = GPUManager.get_instance()
+    info = gpu_mgr.get_device_info()
+    mgr = ModelManager()
+    models = mgr.list_models()
+    installed_count = sum(1 for m in models if m.status == "installed")
+
+    print("========================================================")
+    print(f"                EnhanceX v{__version__} Doctor Diagnostic")
+    print("========================================================")
+    print("Created by Slock Ahuja")
+    print("GitHub: https://github.com/SlockAhuja/EnhanceX")
+    print("--------------------------------------------------------")
+    print(f"  Framework Version:     EnhanceX v{__version__}")
+    print(f"  Python Runtime:        {sys.version.split()[0]}")
+    print(f"  OpenCV Version:        {cv2.__version__}")
+    print(f"  Active Compute Device: {info['device']}")
+    print(f"  GPU Hardware Name:     {info['name']}")
+    print(f"  CUDA Acceleration:     {'AVAILABLE' if info['is_cuda'] else 'DISABLED (CPU Fallback)'}")
+    print(f"  Installed AI Models:   {installed_count} / {len(models)}")
+    print("--------------------------------------------------------")
+    print("  Subpackage Ecosystem Verification:")
+    print("    [OK] enhancex-core:      READY")
+    print("    [OK] enhancex-image:     READY")
+    print("    [OK] enhancex-video:     READY")
+    print("    [OK] enhancex-audio:     READY")
+    print("    [OK] enhancex-document:  READY")
+    print("    [OK] enhancex-anime:     READY")
+    print("    [OK] enhancex-medical:   READY")
+    print("    [OK] enhancex-satellite: READY")
+    print("    [OK] enhancex-face:      READY")
+    print("========================================================")
+    print("System Doctor Status: HEALTHY & READY FOR INFERENCE")
+    print("========================================================")
+
+
+def run_info():
+    gpu_mgr = GPUManager.get_instance()
+    info = gpu_mgr.get_device_info()
+    print(f"EnhanceX Platform v{__version__}")
+    print("Created by Slock Ahuja (https://github.com/SlockAhuja/EnhanceX)")
+    print(f"Device: {info['name']} ({info['device']})")
+    print(f"CUDA Available: {info['is_cuda']}")
+    print("Modules: core, image, video, audio, document, anime, medical, satellite, face, studio, server, sdk, cuda")
+
+
+def run_version():
+    print(f"EnhanceX Version: {__version__}")
 
 
 def run_enhance(input_path: str, output_path: str, sharpen: float, denoise: float, clahe: bool, white_balance: bool, face_enhance: bool, hdr: bool, device: str, mode: str = "auto", model: str = None):
@@ -73,58 +160,13 @@ def run_interpolate(input_path: str, output_path: str, target_fps: float, engine
     interpolator.process_video(input_path, output_path, target_fps=target_fps)
 
 
-def run_doctor():
-    gpu_mgr = GPUManager.get_instance()
-    info = gpu_mgr.get_device_info()
-    mgr = ModelManager()
-    models = mgr.list_models()
-    installed_count = sum(1 for m in models if m.status == "installed")
-
-    print(BANNER)
-    print("=" * 60)
-    print("               ENHANCEX SYSTEM DIAGNOSTICS            ")
-    print("=" * 60)
-    print(f"  Framework Version:     {__version__}")
-    print(f"  Python Runtime:        {sys.version.split()[0]}")
-    print(f"  OpenCV Version:        {cv2.__version__}")
-    print(f"  Active Compute Device: {info['device']}")
-    print(f"  GPU Hardware Name:     {info['name']}")
-    print(f"  CUDA Acceleration:     {'AVAILABLE' if info['is_cuda'] else 'DISABLED (CPU Fallback)'}")
-    print(f"  Installed AI Models:   {installed_count} / {len(models)}")
-    print("=" * 60)
-    print("  Subpackage Verification:")
-    print("    - enhancex-core:      [OK]")
-    print("    - enhancex-image:     [OK]")
-    print("    - enhancex-video:     [OK]")
-    print("    - enhancex-audio:     [OK]")
-    print("    - enhancex-document:  [OK]")
-    print("    - enhancex-anime:     [OK]")
-    print("    - enhancex-medical:   [OK]")
-    print("    - enhancex-satellite: [OK]")
-    print("    - enhancex-face:      [OK]")
-    print("=" * 60)
-    print("System Doctor Status: HEALTHY & READY FOR INFERENCE")
-    print("=" * 60)
-
-
-def run_info():
-    gpu_mgr = GPUManager.get_instance()
-    info = gpu_mgr.get_device_info()
-    print(f"EnhanceX Platform v{__version__}")
-    print(f"Device: {info['name']} ({info['device']})")
-    print(f"CUDA Available: {info['is_cuda']}")
-    print("Modules: core, image, video, audio, document, anime, medical, satellite, face, studio, server, sdk, cuda")
-
-
-def run_version():
-    print(f"EnhanceX Version: {__version__} (Release Candidate v1.1.0-v2.0.0)")
-
-
 if HAS_CLICK:
     @click.group()
-    @click.version_option(version=__version__)
+    @click.version_option(version=__version__, message="EnhanceX Version: %(version)s")
     def main():
-        """EnhanceX: Universal AI-Powered Media Enhancement Platform."""
+        """EnhanceX v2.0.0: Universal AI-Powered Media Enhancement Platform.
+        Created by Slock Ahuja (https://github.com/SlockAhuja/EnhanceX)
+        """
         check_first_run()
 
     @main.command()

@@ -173,6 +173,16 @@ if HAS_QT:
         def open_export_wizard(self):
             dialog = ExportWizardDialog(self)
             dialog.exec()
+
+        def show_about_dialog(self):
+            QMessageBox.about(
+                self,
+                "About EnhanceX Studio v2.0.0",
+                "<h2>EnhanceX v2.0.0</h2>"
+                "<p>Universal AI-Powered Image & Video Enhancement Suite</p>"
+                "<p><b>Created by:</b> Slock Ahuja</p>"
+                "<p><b>GitHub:</b> <a href='https://github.com/SlockAhuja/EnhanceX'>https://github.com/SlockAhuja/EnhanceX</a></p>"
+            )
 else:
     class EnhanceXStudioWindow:
         def __init__(self, *args, **kwargs):
