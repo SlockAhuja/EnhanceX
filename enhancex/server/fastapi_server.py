@@ -22,11 +22,16 @@ logger = get_logger("EnhanceX.Server")
 
 JOBS_DB: Dict[str, Dict[str, Any]] = {}
 
+from enhancex.core.telemetry import TelemetryCollector
+from enhancex import __version__
+
+telemetry = TelemetryCollector()
+
 if HAS_FASTAPI:
     app = FastAPI(
-        title="EnhanceX REST & Streaming API",
-        description="Enterprise REST & WebSocket Streaming API for Universal AI Image/Video Processing",
-        version="1.0.0",
+        title="EnhanceX Enterprise REST & Streaming Platform",
+        description="Production REST, Prometheus Telemetry & WebSocket Streaming API for AI Media Enhancement",
+        version=__version__,
         docs_url="/docs",
         redoc_url="/redoc"
     )
@@ -49,9 +54,14 @@ if HAS_FASTAPI:
         gpu_info = gpu_manager.get_device_info()
         return {
             "status": "healthy",
-            "framework": "EnhanceX v1.0.0",
+            "framework": f"EnhanceX v{__version__}",
             "device": gpu_info
         }
+
+    @app.get("/metrics", tags=["Telemetry"])
+    async def get_metrics():
+        from fastapi.responses import PlainTextResponse
+        return PlainTextResponse(telemetry.export_prometheus_format())
 
     @app.post("/api/v1/enhance/image", tags=["Image Enhancement"])
     async def enhance_image(

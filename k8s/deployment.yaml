@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enhancex-platform
+  labels:
+    app: enhancex
+    tier: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: enhancex
+  template:
+    metadata:
+      labels:
+        app: enhancex
+    spec:
+      containers:
+      - name: enhancex-api
+        image: slockahuja/enhancex:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        - containerPort: 50051
+          name: grpc
+        resources:
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+            nvidia.com/gpu: "1"
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+        env:
+        - name: ENHANCEX_DEVICE
+          value: "cuda"
+        - name: ENHANCEX_WORKERS
+          value: "4"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5

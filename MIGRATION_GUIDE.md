@@ -1,46 +1,31 @@
-# EnhanceX Migration Guide (v0.x to v1.0.0)
+# EnhanceX Migration & Upgrade Guide
 
-This guide assists developers and maintainers in upgrading existing projects to **EnhanceX v1.0.0**.
+## Upgrading from v1.0.0 to Next Gen (v1.1.0 - v2.0.0)
 
----
+EnhanceX maintains **100% backward compatibility** with all v1.0.0 Python APIs and CLI flags.
 
-## Key Changes & Breaking Updates
+### 1. New Features Migration
 
-### 1. Exception Handling Hierarchy
-In v1.0.0, generic standard exceptions (like `ValueError` or `FileNotFoundError`) raised in AI and path processing modules are replaced with structured domain exceptions inheriting from `EnhanceXError`:
-
+#### Automatic Adaptive Mode (Default)
+In v1.0.0, manual parameters were required. In v1.1.0+, Auto Mode is enabled by default:
 ```python
-# Old Exception handling
-try:
-    path = model_loader.get_model_path("../invalid")
-except Exception as e:
-    print(e)
+from enhancex import ImageEnhancer
 
-# Modern v1.0.0 Exception handling
-from enhancex.core.exceptions import ValidationError, ModelNotFoundError, EnhanceXError
-
-try:
-    path = model_loader.get_model_path("real-esrgan")
-except ValidationError as e:
-    logger.error(f"Invalid input parameter: {e}")
-except ModelNotFoundError as e:
-    logger.error(f"Model weight unavailable: {e}")
+# Automatically analyzes input category and quality defects
+enhancer = ImageEnhancer(mode="auto")
+out = enhancer.enhance("input.jpg", "output.jpg")
 ```
 
-### 2. Video Pipeline Manager
-The video enhancement flow is now orchestrated through `VideoPipelineManager` instead of manually invoking individual video readers and writers:
-
+#### Manual / Research Mode
+To specify exact model weights for research or benchmarking:
 ```python
-from enhancex.video import VideoPipelineManager
-
-pipeline = VideoPipelineManager(
-    enable_stabilization=True,
-    enable_super_resolution=True,
-    sr_model="real-esrgan",
-    sr_scale=4
-)
-pipeline.process_video("input.mp4", "output.mp4")
+enhancer = ImageEnhancer(mode="manual", model="GFPGAN")
+out = enhancer.enhance("input.jpg", "output.jpg")
 ```
 
-### 3. REST API Authentication
-When deploying the FastAPI REST server in production, pass the `X-API-Key` header if the `ENHANCEX_API_KEY` environment variable is defined.
+### 2. Modular Installations
+If you only need specific functionality (e.g. document processing or audio denoise), install subpackages:
+```bash
+pip install enhancex-document
+pip install enhancex-audio
+```
