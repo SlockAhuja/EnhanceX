@@ -1,0 +1,44 @@
+system:
+  device: "auto"        # "auto", "cuda", "cpu"
+  precision: "fp32"     # "fp32", "fp16"
+  backend: "onnx"       # "onnx", "torch", "tensorrt"
+  threads: 4
+  log_level: "INFO"
+
+image:
+  clahe:
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+  white_balance:
+    method: "gray_world" # "gray_world", "white_patch"
+  sharpen:
+    strength: 1.0
+    radius: 1
+  denoise:
+    h: 10.0
+    template_window_size: 7
+    search_window_size: 21
+
+video:
+  stabilization:
+    smoothing_radius: 30
+    border_mode: "reflect" # "reflect", "replicate", "crop"
+    max_corners: 200
+    quality_level: 0.01
+    min_distance: 30.0
+    rolling_shutter_compensation: true
+  interpolation:
+    engine: "rife"
+    scale_factor: 2
+  scene_detection:
+    threshold: 30.0
+
+ai:
+  super_resolution:
+    model: "real-esrgan" # "real-esrgan", "edsr", "srcnn"
+    scale: 4
+    tile_size: 512
+    tile_pad: 10
+  denoise:
+    model: "dncnn"
+    strength: 0.1

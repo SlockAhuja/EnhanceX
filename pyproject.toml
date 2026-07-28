@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enhancex"
+version = "1.0.0"
+description = "Universal AI-Powered Image & Video Enhancement Framework"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "EnhanceX Core Team", email = "dev@enhancex.org" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+dependencies = [
+    "numpy>=1.24.0",
+    "opencv-python>=4.8.0",
+    "pillow>=9.5.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.65.0",
+    "click>=8.1.0"
+]
+
+[project.optional-dependencies]
+ai = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "onnxruntime>=1.15.0"
+]
+gpu = [
+    "cupy-cuda12x>=12.0.0"
+]
+dev = [
+    "pytest>=7.3.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.3.0",
+    "flake8>=6.0.0",
+    "mypy>=1.3.0"
+]
+
+[project.scripts]
+enhancex = "enhancex.cli.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v"
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package enhancex;
+
+service EnhanceXService {
+  rpc HealthCheck (HealthRequest) returns (HealthResponse);
+  rpc EnhanceImage (ImageRequest) returns (ImageResponse);
+  rpc UpscaleImage (UpscaleRequest) returns (ImageResponse);
+  rpc StreamFrames (stream FrameChunk) returns (stream FrameChunk);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;
+  string version = 2;
+  string device = 3;
+}
+
+message ImageRequest {
+  bytes image_data = 1;
+  float sharpen = 2;
+  float denoise = 3;
+  bool clahe = 4;
+  bool white_balance = 5;
+}
+
+message UpscaleRequest {
+  bytes image_data = 1;
+  int32 scale = 2;
+  string model = 3;
+}
+
+message ImageResponse {
+  bytes enhanced_data = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 channels = 4;
+}
+
+message FrameChunk {
+  int64 frame_id = 1;
+  bytes frame_bytes = 2;
+}

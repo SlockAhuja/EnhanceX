@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  enhancex-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enhancex-rest-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENHANCEX_DEVICE=cuda
+      - ENHANCEX_BACKEND=onnx
+    command: uvicorn enhancex.server.fastapi_server:app --host 0.0.0.0 --port 8000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
+
+  enhancex-grpc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enhancex-grpc-server
+    ports:
+      - "50051:50051"
+    environment:
+      - ENHANCEX_DEVICE=cuda
+    command: python enhancex/server/grpc_server.py
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always

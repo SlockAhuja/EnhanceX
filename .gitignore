@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+build/
+dist/
+pip-wheel-metadata/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+test_venv/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CMake & Build
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+Makefile
+*.ninja
+.ninja_*
+
+# Compiled Libraries & Binaries
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
+*.o
+*.obj
+*.exe
+
+# CUDA
+*.cubin
+*.ptx
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.temp
+
+# Coverage & Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Model Cache & Downloads
+.cache/
+models/cache/
+
+# Benchmarks & Outputs
+benchmark_report.json
+demo_outputs/
+outputs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS Artifacts
+.DS_Store
+Thumbs.db

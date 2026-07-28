@@ -1,0 +1,3 @@
+Operation,Resolution,Backend,FPS,Mean Latency (ms)
+Laplacian Sharpen,1080p (1920x1080),EnhanceX Core,11.23,89.06
+Super Resolution 2x,256x256 -> 512x512,Real-ESRGAN Engine,774.85,1.29
